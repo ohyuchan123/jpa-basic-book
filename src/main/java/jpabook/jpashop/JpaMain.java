@@ -1,5 +1,8 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,6 +18,13 @@ public class JpaMain {
 
         //등록
         try {
+
+            Order order = em.find(Order.class, 1L);
+            Long memberId = order.getMemberId();
+            em.find(Member.class, memberId);
+
+            Member findMember = order.getMember();
+
             ts.commit();//ts(transaction)을 commit하는 시점에 영속성 컨테스트가 db에 들어가게 된다.
         }catch (Exception e){
             ts.rollback();
